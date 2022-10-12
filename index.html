@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>111</title>
+	 <style>
+        body{background: black;}
+        h1{font-size: 50px; color: white; position: absolute; top: 10vh;left: 50%; transform: transLate(-50%,-50%);  font-weight:normal;font-family: 'LeferiPoint-SpecialItalicA';}
+        h2{font-size: 30px; color: white; position: absolute; top: 50vH; left: 50%;transform: transLate(-50%,-50%);font-family: 'GongGothicMedium';font-weight: unset;}
+         h3{font-size: 7px; color: white; position: absolute; top: 1vH; left: 50%;transform: transLate(-50%,-50%);}
+	 	div{margin: 0;}
+             .M{margin: 2px; width: 200px; height: 200px; display: inline-block;}
+        #cPic{transform: transLate(-50%,-50%); margin: 0; position: absolute; top: 5vh; left: 50%;}
+       .boxSet{margin: 10px; }
+       .fNum{text-align: center;font-family: 'GmarketSansMedium';}
+       .fNum2{text-align: center; font-size: 20px; font-family: 'GmarketSansMedium';font-weight: bold;}
+       #cPalette{padding: 5px; font-size: 20px; border-radius: 15px; border: 2px solid black; position: absolute; top: 40vh;display: flex;left: 50vw; transform: transLate(-50%,-50%); background: white;}
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LeferiPoint-SpecialItalicA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-SpecialItalicA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+        </style>
+</head>
+<body>
+	<input type="color" id = "cPic">
+	 <div id = "cV"></div>
+     <h3>Click here!</h3>
+     <h1>Random Color palette!!</h1>
+
+<div id="cPalette">
+     <div id= "box" class="boxSet">  
+        <div id = "aV" class="fNum2"></div>
+        <div id = "main" class="M"></div>
+    </div>
+
+    <div id= "box1"class="boxSet">
+        <div id = "aV1" class="fNum"></div>
+        <div id = "sub1" class="M"></div>
+    </div>
+        
+    <div id= "box2"class="boxSet">
+        <div id = "aV2" class="fNum"></div>
+         <div id = "sub2" class="M"></div>
+    </div>
+
+    <div id= "box3"class="boxSet">
+        <div id = "aV3" class="fNum"></div>
+         <div id = "sub3" class="M"></div>
+    </div>
+
+    <div id= "box4" class="boxSet">
+        <div id = "aV4" class="fNum"></div>
+         <div id = "sub4" class="M"></div>
+    </div>
+
+<h2>Draw it with this color palette!</h2>
+
+</div>
+	 <script type="text/javascript">
+ 
+	cPic.oninput = function(){
+
+//hex값 innerHTML에 입력
+var f = document.getElementById( "aV" ).innerHTML = cPic.value;
+
+
+
+//hex값 Rgb으로 변환
+       var k = document.getElementById( "cV" ).innerHTML = hexToRgb();
+        
+     // rgb값 나누기  
+    var fff = k.trim().replace( "rgb(", "" );
+    var sss = fff.trim().replace( ")", "" );
+    var RgbnumArr =sss.split(",");
+    console.log(RgbnumArr[0],RgbnumArr[1],RgbnumArr[2]);
+
+let r1 = RgbnumArr[0]
+let g2 = RgbnumArr[1]
+let b2 = RgbnumArr[2]
+
+ let RGBToHSB = function(r, g, b) {
+                  r /= 255;
+                  g /= 255;
+                  b /= 255;
+                  let v = Math.max(r, g, b),
+            n = v - Math.min(r, g, b);
+                  let h =
+            n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+                  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];
+        };
+
+   // hsb값 나누기  
+    var hhh = RGBToHSB(r1, g2, b2);
+
+//main 박스 생성
+    let mm = document.getElementById("main");
+    mm.style.backgroundColor = 
+    cPic.value;
+
+//sub1박스 생성
+ function randomBH(min, max){
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random()*(max-min+1)) + min;}
+
+
+function makeH1() {
+    var makea1= randomBH(hhh[0]-60,hhh[0]+60);
+let i=makea1
+
+if(i<0){
+        i=i+60;
+        return i;
+    
+    }
+else if(i>360) {
+    i=i-60;
+    return i;
+
+}
+else  {return i;};
+
+}
+
+
+function makeS() {
+    var makeb= hhh[1]
+    return makeb+ "%";
+}
+
+function makeL() {
+    var makec= hhh[2];
+    return makec+ "%";
+}
+
+    let s1 = document.getElementById("sub1");
+    s1.style.backgroundColor = 
+    "hsl(" + makeH1() + "," + makeS()+"," + makeL2()+")";
+    box1.appendChild(s1);
+
+//sub2박스 생성
+
+function makeH() {
+    var makea= hhh[0]
+    return makea;
+}
+
+function makeS2() {
+    var makes2= randomBH(hhh[1]-40,hhh[1]+40);
+let j=makes2
+
+if(j<0){
+        j=j+40;
+        return j+ "%";
+    }
+
+else if(j>100) {
+    j=j-40;
+    return j+ "%";
+}
+
+else  {return j+ "%";};
+}
+
+function makeL2() {
+    var makec2= randomBH(50,100);
+    return makec2+ "%";
+}
+
+function makeS4() {
+    var makeb4= randomBH(80,100);
+    return makeb4+ "%";
+}
+
+
+function makeH4() {
+    var makea4=hhh[0]+180;
+let k=makea4
+
+if(k>360){
+        k=k-360;
+        return k;
+    }
+else  {return k;};
+}
+
+    let s2 = document.getElementById("sub2");
+    s2.style.backgroundColor = 
+    "hsl(" + makeH() + "," + makeS2()+"," + makeL2()+")";
+   box2.appendChild(s2);
+
+    let s3 = document.getElementById("sub3");
+    s3.style.backgroundColor = 
+    "hsl(" + makeH() + "," + makeS2()+"," + makeL2()+")";
+    box3.appendChild(s3);
+
+
+    let s4 = document.getElementById("sub4");
+    s4.style.backgroundColor = 
+    "hsl(" + makeH4() + "," + makeS4()+"," + makeL2()+")";
+    box4.appendChild(s4);
+
+
+//#Hex 값으로 바꾸기
+
+
+var f1=document.getElementById('sub1').style.backgroundColor;
+var f2=document.getElementById('sub2').style.backgroundColor;
+var f3=document.getElementById('sub3').style.backgroundColor;
+var f4=document.getElementById('sub4').style.backgroundColor;
+
+
+
+  function rgbToHex(f1){
+    if(f1.charAt(0)=='r')
+    {
+        f1=f1.replace('rgb(','').replace(')','').split(',');
+        var r=parseInt(col[0], 10).toString(16);
+        var g=parseInt(col[1], 10).toString(16);
+        var b=parseInt(col[2], 10).toString(16);
+        r=r.length==1?'0'+r:r; g=g.length==1?'0'+g:g; b=b.length==1?'0'+b:b;
+        var colHex='#'+r+g+b;
+        return colHex;
+    }
+  }
+  function rgbToHex(f2){
+    if(f2.charAt(0)=='r')
+    {
+        f2=f2.replace('rgb(','').replace(')','').split(',');
+        var r=parseInt(col[0], 10).toString(16);
+        var g=parseInt(col[1], 10).toString(16);
+        var b=parseInt(col[2], 10).toString(16);
+        r=r.length==1?'0'+r:r; g=g.length==1?'0'+g:g; b=b.length==1?'0'+b:b;
+        var colHex='#'+r+g+b;
+        return colHex;
+    }
+  }
+  function rgbToHex(f3){
+    if(f3.charAt(0)=='r')
+    {
+        f3=f3.replace('rgb(','').replace(')','').split(',');
+        var r=parseInt(col[0], 10).toString(16);
+        var g=parseInt(col[1], 10).toString(16);
+        var b=parseInt(col[2], 10).toString(16);
+        r=r.length==1?'0'+r:r; g=g.length==1?'0'+g:g; b=b.length==1?'0'+b:b;
+        var colHex='#'+r+g+b;
+        return colHex;
+    }
+  }
+  function rgbToHex(f4){
+    if(f4.charAt(0)=='r')
+    {
+        f4=f4.replace('rgb(','').replace(')','').split(',');
+        var r=parseInt(f4[0], 10).toString(16);
+        var g=parseInt(f4[1], 10).toString(16);
+        var b=parseInt(f4[2], 10).toString(16);
+        r=r.length==1?'0'+r:r; g=g.length==1?'0'+g:g; b=b.length==1?'0'+b:b;
+        var colHex='#'+r+g+b;
+        return colHex;
+    }
+  }
+
+
+document.getElementById( "aV1" ).innerHTML = rgbToHex(f1);
+document.getElementById( "aV2" ).innerHTML = rgbToHex(f2);
+document.getElementById( "aV3" ).innerHTML = rgbToHex(f3);
+document.getElementById( "aV4" ).innerHTML = rgbToHex(f4);
+
+
+
+	}
+
+//rgb값 표시 코드//	
+function hexToRgb ( f ){ 
+    /* 맨 앞의 "#" 기호를 삭제하기. */ 
+    var v =cPic.value;
+    var hex = v.trim().replace( "#", "" ); 
+    
+    /* rgb로 각각 분리해서 배열에 담기. */ 
+    var rgb = ( 3 === hex.length ) ? 
+		hex.match( /[a-f\d]/gi ) : hex.match( /[a-f\d]{2}/gi );     
+    
+    rgb.forEach(function (str, x, arr){     
+        /* rgb 각각의 헥사값이 한자리일 경우, 두자리로 변경하기. */ 
+        if ( str.length == 1 ) str = str + str; 
+        
+        /* 10진수로 변환하기. */ 
+        arr[ x ] = parseInt( str, 16 ); 
+    }); 
+    
+    return "rgb(" + rgb.join(", ") + ")"; 
+    
+} 
+
+
+
+
+       
+
+        </script>
+
+</body>
+</html>
